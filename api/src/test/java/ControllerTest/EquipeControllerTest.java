@@ -5,6 +5,7 @@ import com.example.api.model.Equipe;
 import com.example.api.repository.EquipeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ class EquipeControllerTest {
     }
 
     @Test
+    @DisplayName("Test unitaire pour récupérer toutes les équipes")
     void testGetAllEquipes() {
 
         Equipe equipe1 = new Equipe("om", "Marseille", "marseille_logo.png");
@@ -53,6 +55,7 @@ class EquipeControllerTest {
     }
 
    @Test
+   @DisplayName("Test unitaire pour ajouter une équipe")
     public void testAddEquipes() {
         Equipe equipe = new Equipe("om", "Marseille", "marseille_logo.png");
         when(equipeRepository.save(any(Equipe.class))).thenReturn(equipe);
@@ -62,6 +65,7 @@ class EquipeControllerTest {
     }
 
     @Test
+    @DisplayName("Test unitaire pour modifier une équipe")
     public void testUpdateEquipes() {
 
         Long id = 1L;
@@ -82,6 +86,23 @@ class EquipeControllerTest {
         verify(equipeRepository, times(1)).findById(eq(id));
         verify(equipeRepository, times(1)).save(any(Equipe.class));
 
+    }
+
+    @Test
+    @DisplayName("Test unitaire pour supprimer une équipe")
+    void testDeleteEquipe() {
+        Long id = 1L;
+        Equipe equipe = new Equipe("om", "Marseille", "marseille_logo.png");
+        equipe.setId(id);
+
+        when(equipeRepository.existsById(id)).thenReturn(true);
+        doNothing().when(equipeRepository).deleteById(id);
+
+        ResponseEntity<Void> response = equipeController.deleteEquipe(id);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(equipeRepository, times(1)).existsById(id);
+        verify(equipeRepository, times(1)).deleteById(id);
     }
 
 
