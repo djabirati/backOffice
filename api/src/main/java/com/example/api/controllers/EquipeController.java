@@ -45,12 +45,12 @@ public class EquipeController {
     @PutMapping("/{id}")
     public ResponseEntity<Equipe> updateEquipe(@PathVariable("id") Long id, @RequestBody Equipe equipe) {
         return equipeRepository.findById(id)
-                .map(existingBillet -> {
-                    existingBillet.setLogo(existingBillet.getLogo());
-                    existingBillet.setNom(existingBillet.getNom());
-                    existingBillet.setVille(existingBillet.getVille());
-                    equipeRepository.save(existingBillet);
-                    return new ResponseEntity<>(existingBillet, HttpStatus.OK);
+                .map(existingEquipe -> {
+                    existingEquipe.setLogo(equipe.getLogo());
+                    existingEquipe.setNom(equipe.getNom());
+                    existingEquipe.setVille(equipe.getVille());
+                    equipeRepository.save(existingEquipe);
+                    return new ResponseEntity<>(existingEquipe, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
