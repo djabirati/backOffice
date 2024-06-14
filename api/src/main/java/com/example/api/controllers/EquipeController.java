@@ -27,6 +27,11 @@ public class EquipeController {
         return new ResponseEntity<>(equipes, HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<Equipe> addEquipe(@RequestBody Equipe equipe) {
+        Equipe savedEquipe = equipeRepository.save(equipe);
+        return new ResponseEntity<>(savedEquipe, HttpStatus.CREATED);
+    }
     // Endpoint pour récupérer une équipe par son ID
     @GetMapping("/{id}")
     public ResponseEntity<Equipe> getEquipeById(@PathVariable("id") Long id) {

@@ -49,14 +49,10 @@ class EquipeControllerTest {
         assertEquals(equipe2, response.getBody().get(1));
     }
 
-/*    @Test
-    @DisplayName("Mockito test pour l'ajout d'une équipe")
-    public void ajoutEquipe() {
+  /*  @Test
+    public void testAddEquipes() {
         Equipe equipe = new Equipe("om", "Marseille", "marseille_logo.png");
-        Equipe equipeBDD = new Equipe("om", "Marseille", "marseille_logo.png");
 
-
-        when(equipeRepository.save(any(Equipe.class))).thenReturn(equipeBD);
 
     }*/
 
