@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -49,12 +50,14 @@ class EquipeControllerTest {
         assertEquals(equipe2, response.getBody().get(1));
     }
 
-  /*  @Test
+   @Test
     public void testAddEquipes() {
         Equipe equipe = new Equipe("om", "Marseille", "marseille_logo.png");
-
-
-    }*/
+        when(equipeRepository.save(any(Equipe.class))).thenReturn(equipe);
+        ResponseEntity<Equipe> response = equipeController.addEquipe(equipe);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(equipe, response.getBody());
+    }
 
 
 }
