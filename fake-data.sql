@@ -12,20 +12,20 @@ CREATE TABLE joueur (
                         nom VARCHAR(100) NOT NULL,
                         prenom VARCHAR(100) NOT NULL,
                         equipe_id BIGINT,
-                        CONSTRAINT FK_Equipe FOREIGN KEY (equipe_id) REFERENCES Equipe(id)
+                        CONSTRAINT FK_Equipe FOREIGN KEY (equipe_id) REFERENCES equipe(id)
 );
 
 -- Table Match
 CREATE TABLE matches (
-                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                       date DATETIME NOT NULL,
-                       location VARCHAR(255) NOT NULL,
-                       teamA_id BIGINT,
-                       teamB_id BIGINT,
-                       scoreA INT NOT NULL,
-                       scoreB INT NOT NULL,
-                       CONSTRAINT FK_TeamA FOREIGN KEY (teamA_id) REFERENCES Equipe(id),
-                       CONSTRAINT FK_TeamB FOREIGN KEY (teamB_id) REFERENCES Equipe(id)
+                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                         date DATETIME NOT NULL,
+                         location VARCHAR(255) NOT NULL,
+                         teamA_id BIGINT,
+                         teamB_id BIGINT,
+                         scoreA INT NOT NULL,
+                         scoreB INT NOT NULL,
+                         CONSTRAINT FK_TeamA FOREIGN KEY (teamA_id) REFERENCES equipe(id),
+                         CONSTRAINT FK_TeamB FOREIGN KEY (teamB_id) REFERENCES equipe(id)
 );
 
 -- Table Billet
@@ -59,11 +59,11 @@ INSERT INTO joueur (nom, prenom, equipe_id) VALUES
 
 -- Insertion de données dans la table Match
 INSERT INTO matches (date, location, teamA_id, teamB_id, scoreA, scoreB) VALUES
-                                                                           ('2024-06-14 18:00:00', 'Parc des Princes', 1, 2, 2, 1),
-                                                                           ('2024-06-15 19:00:00', 'Camp Nou', 3, 4, 3, 3),
-                                                                           ('2024-06-16 20:00:00', 'Allianz Arena', 5, 2, 1, 2),
-                                                                           ('2024-06-17 18:00:00', 'Old Trafford', 4, 1, 1, 0),
-                                                                           ('2024-06-18 20:00:00', 'Santiago Bernabéu', 2, 3, 2, 2);
+                                                                             ('2024-06-14 18:00:00', 'Parc des Princes', 1, 2, 2, 1),
+                                                                             ('2024-06-15 19:00:00', 'Camp Nou', 3, 4, 3, 3),
+                                                                             ('2024-06-16 20:00:00', 'Allianz Arena', 5, 2, 1, 2),
+                                                                             ('2024-06-17 18:00:00', 'Old Trafford', 4, 1, 1, 0),
+                                                                             ('2024-06-18 20:00:00', 'Santiago Bernabéu', 2, 3, 2, 2);
 
 -- Insertion de données dans la table Billet
 INSERT INTO billet (type, categorie, prix) VALUES
