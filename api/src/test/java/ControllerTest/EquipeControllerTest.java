@@ -14,10 +14,12 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class EquipeControllerTest {
 
@@ -57,6 +59,29 @@ class EquipeControllerTest {
         ResponseEntity<Equipe> response = equipeController.addEquipe(equipe);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(equipe, response.getBody());
+    }
+
+    @Test
+    public void testUpdateEquipes() {
+
+        Long id = 1L;
+        Equipe equipe = new Equipe("om", "Marseille", "marseille_logo.png");
+        equipe.setId(id);
+        Equipe equipeModifie = new Equipe("om", "Marseille", "om_logo.png");
+
+        when(equipeRepository.findById(id)).thenReturn(Optional.of(equipe));
+        when(equipeRepository.save(any(Equipe.class))).thenReturn(equipeModifie);
+
+        ResponseEntity<Equipe> response = equipeController.updateEquipe(id, equipeModifie);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(equipeModifie.getNom(), response.getBody().getNom());
+        assertEquals(equipeModifie.getVille(), response.getBody().getVille());
+        assertEquals(equipeModifie.getLogo(), response.getBody().getLogo());
+
+        verify(equipeRepository, times(1)).findById(eq(id));
+        verify(equipeRepository, times(1)).save(any(Equipe.class));
+
     }
 
 
